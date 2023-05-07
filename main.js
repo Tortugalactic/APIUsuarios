@@ -8,6 +8,7 @@ const app = express();
 //Creacion de la constante puerto
 const port = 3000;
 
+//creacion de la constante connectDB
 
 //creacion de la constante userRoutes
 const userRoutes = require("./routes/userRoutes");

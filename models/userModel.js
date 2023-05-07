@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Uri = "mongodb+srv://'Datos de Conexion'@cluster0.moyksys.mongodb.net/?retryWrites=true&w=majority";
+const Uri = "Aqui va la url de mongodb Altas o mongodb local. Cambiandolo la API ya es funcional";
 
 mongoose.connect(Uri, {
   useNewUrlParser: true,
@@ -16,4 +16,4 @@ const userSchema = new mongoose.Schema({
     password: {type:String, required:true}
 });
 
-module.exports = mongoose.model('Users', userSchema);
+module.exports = mongoose.model('Usuarios', userSchema);
