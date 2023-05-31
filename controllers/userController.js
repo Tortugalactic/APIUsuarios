@@ -1,4 +1,5 @@
 const userModel = require("../models/userModel");
+const bcrypt = require("bcryptjs");
 
 exports.getAllUsers = (req, res) => {
     userModel.find()
@@ -8,16 +9,25 @@ exports.getAllUsers = (req, res) => {
 
 exports.createUser =  (req, res) => {
     const {username, email,password} = req.body;
-    const newUser = new userModel({
-        username,
-        email,
-        password
+    const saltRounds = 10;
+    bcrypt.hash(password, saltRounds, function(err, hash){
+        if(err){
+            return res.status(500).json({error:err.message});
+        }
+        else{
+            const newUser = new userModel({
+            username,
+            email,
+            password:hash
+            });
+
+            newUser
+            .save()
+            .then(() => res.status(201).json({success:"created"}))
+            .catch(err => res.status(500).json({error:err.message}));
+         }
     });
 
-    newUser.save()
-    .then(() => res.status(201).json({success:"created"}))
-    .catch(err => res.status(500).json({error:err.message}));
-}
 
 exports.updateUser = (req, res) => {
     const {id}= req.params;
